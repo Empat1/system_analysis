@@ -1,0 +1,1 @@
+class Adjacency(row:Int, column:Int) : Matrix(row , column)
