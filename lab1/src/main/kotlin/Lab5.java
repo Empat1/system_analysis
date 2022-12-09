@@ -29,14 +29,6 @@ public class Lab5 {
 
         return e2;
 
-//        for(int[] row : arr){
-//            int countH =0;
-//            for (int cell : row)
-//                if(cell == 1) countH++;
-//            sum = (countH - g) * (countH - g);
-//        }
-//
-//        return sum;
     }
 
     private int sumVertices(int[][] arr){
@@ -59,6 +51,13 @@ public class Lab5 {
 //             ,{1,1,0,1,1}
 //             ,{1,1,1,0,1}
 //             ,{1,1,1,1,0}};
+//           int[][] A =
+//             {{0,1,0,0,0}
+//             ,{1,0,1,0,0}
+//             ,{0,1,0,1,0}
+//             ,{0,0,1,0,1}
+//             ,{0,0,0,1,0}};
+
            int[][] A =
              {{0,1,0,0,0}
              ,{1,0,1,0,0}
