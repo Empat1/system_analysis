@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Lab5 {
     public static void main(String[] args) {
@@ -120,6 +121,13 @@ public class Lab5 {
 
         return tM;
     }
+
+
+
+//    static int[] getH(int arr[][] , int n){
+//        for(int a : arr[n])
+//
+//    }
     static void print(int[][] arr){
         for (int[] ints : arr) {
             for (int j = 0; j < arr[0].length; j++) {

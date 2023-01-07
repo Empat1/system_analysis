@@ -9,22 +9,22 @@ fun nextBiggerNumber(n: Long): Long {
 
 
 fun main() {
-    val scanner = Scanner(System.`in`);
-    var text = ""
+    /*1*/val scanner = Scanner(System.`in`) /*1*/
+    /*2*/println("Ввидете размер масива")
+    /*3*/val sizeArray = scanner.nextInt()
+    /*4*/if (sizeArray < 0) {
+        /*5*/     println("Размер массива введен не корректно")
+        /*6*/    return
+        /*7*/}
 
-    do {
-        val s = scanner.nextLine();
-        if(s!= "-1") text += s;
-        else{
-            println(parse(text))
-            text = ""
-        }
-    }while (s != "-2")
-
-
-
-
-
+    /*8*/var mul = 1;
+    /*9*/for(i in 0 until sizeArray){
+        /*10*/val element = scanner.nextInt();
+        /*11*/if(element % 2 == 1){
+            /*12*/mul *= element
+        /*13*/}
+        /*14*/}
+    /*15*/println("Произведение = $mul")
 }
 
 @Test
