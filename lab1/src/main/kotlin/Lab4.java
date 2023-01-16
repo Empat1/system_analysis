@@ -6,30 +6,38 @@ public class Lab4 {
         int[][] a = {{0, 1, 0, 0}
                 ,{0, 0, 1, 0}
                 ,{0, 0, 1, 1}
-                ,{0, 0, 0, 0}};
+                ,{1, 0, 0, 0}};
 
         int[][] b = {{0 , 1, 0 , 0 , 0 , 0 , 0 }
                 ,{0 , 0, 0, 0, 0, 1, 0}
                 ,{1 , 0, 0, 0, 1, 0, 1}
                 ,{0 , 0, 0, 0, 0, 1, 0}
                 ,{0, 1, 0, 1, 0, 0, 0}
-                ,{0, 0, 0, 0, 0, 0, 0}
+                ,{1, 0, 0, 0, 0, 0, 0}
                 ,{0, 1, 0, 1, 0, 0, 0}};
 
         int[][] at = t(a);
         int[][] bt = t(b);
 
 
+        int start=0;
 
         y = t(b);
         print(t(y));
 
-        ArrayList<ArrayList<Integer>> lvl = lvlplas(bt , findLvl0(bt));
+//        findLvl0(bt , start).forEach(System.out::println);
 
+        ArrayList<ArrayList<Integer>> lvl = lvlplas(at , findLvl0(at , start));
+
+//        for(ArrayList<Integer> l : lvl){
+//            System.out.println();
+//            l.forEach(it -> System.out.print(it + " "));
+//        }
+//
         int[][] answer = findPath(y , lvl);
         System.out.println();
 
-        print(t(answer));
+//        print(t(answer));
 
     }
 
@@ -101,21 +109,22 @@ public class Lab4 {
     }
 
 
-    static ArrayList<Integer> findLvl0(int[][] arr){
+    static ArrayList<Integer> findLvl0(int[][] arr, int start){
         ArrayList<Integer> lvl0 =new ArrayList<Integer>();
         boolean flag;
 
         for(int i =0 ; i < arr.length;i++){
             flag = true;
-            for(int j = 0; j < arr.length;j++){
-                if(arr[i][j] == 1) {
-                    flag = false;
-                    break;
-                }
-            }
-            if(flag){
-                lvl0.add(i+1);
-            }
+//            for(int j = 0; j < arr.length;j++){
+//                if(arr[i][j] == 1) {
+//                    flag = false;
+//                    break;
+//                }
+//            }
+            if(arr[i][start] == 1) lvl0.add(i+1);
+//            if(flag){
+//                lvl0.add(i+1);
+//            }
         }
 
         return lvl0;
@@ -124,23 +133,23 @@ public class Lab4 {
         ArrayList<ArrayList<Integer>> lvls = new ArrayList<>();
         lvls.add(lvl1);
 
-        boolean isChange = true;//изменилось ли что-то
+        boolean isNotStart = true;//изменилось ли что-то
 
-        while (isChange){
+        while (isNotStart){
             ArrayList<Integer> nextLvlNoRepeat = new ArrayList<>();
             ArrayList<Integer> nextLvl = findNextLvl(arr , lvls.get(lvls.size()-1));
-            isChange = false;
+            isNotStart = inStart(arr, lvl1);
 
             for(int i =0 ; i< nextLvl.size();i++){
                 if(!isFindLvLs(lvls , nextLvl.get(i)) && !isFindLvL(nextLvlNoRepeat, nextLvl.get(i))){
-                    isChange = true;
+                    isNotStart = true;
                     nextLvlNoRepeat.add(nextLvl.get(i));
                 }else{
                     System.out.println("Не сработало");
                 }
             }
 
-            if(isChange){
+            if(isNotStart){
                 lvls.add(nextLvlNoRepeat);
             }
         }
@@ -148,6 +157,9 @@ public class Lab4 {
         return lvls;
     }
 
+    static boolean inStart(int[][] arr ,ArrayList<Integer> lvl1){
+        return false;
+    }
 
     static boolean isFindLvLs(ArrayList<ArrayList<Integer>> lvls ,int number){
         //Теоретически можно повысить скорость используя таблицу
