@@ -10,83 +10,177 @@ public class Lab4altr {
                 ,{0, 0, 1, 0}
                 ,{1, 0, 0, 0}};
 
-        arr = a;
+        int[][] b = {{0 , 1, 0 , 0 , 0 , 0 , 0 }
+                ,{0 , 0, 0, 0, 0, 1, 0}
+                ,{1 , 0, 0, 0, 1, 0, 1}
+                ,{0 , 0, 0, 0, 0, 1, 0}
+                ,{0, 1, 0, 1, 0, 0, 0}
+                ,{1, 0, 0, 0, 0, 0, 0}
+                ,{0, 1, 0, 1, 0, 0, 0}};
 
+        int[][] c = {{0, 1, 0, 0, 0, 1, 0, 0, 0, 0}
+                ,{0, 0, 0, 1, 0 ,1, 0, 0, 0, 0}
+                ,{0, 0, 0, 0, 0, 0, 1, 1, 0, 0}
+                ,{0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
+                ,{0, 0, 0, 1, 0, 0, 0, 0, 1, 0}
+                ,{0, 0, 1, 0, 0, 0, 1, 0, 0, 1}
+                ,{0, 0, 0, 1, 0, 0, 0, 1, 0, 0}
+                ,{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+                ,{0, 0, 0, 0, 1, 0, 0, 1, 0, 0}
+                ,{0, 0, 0, 0, 0, 0, 0, 0, 1, 0}};
 
-        print(t(arr));
+//        arr = a;
+//
+//
+//        print(t(arr));
         System.out.println();
 
+//        Lab4altr lab4 = new Lab4altr();
+//        lab4.DFS(0, 2);
+//
+//        print(t(arr));
+
+        arr = t(c);
+
         Lab4altr lab4 = new Lab4altr();
-        lab4.DFS(0, 2);
 
-        print(t(arr));
+        for(int i =0 ; i < arr.length; i++){
+            lab4.startFindPath(i);
+        }
+
+
+
+
+        print(arr);
+        System.out.println();
+
+//        print(lab4.result);
+
+        System.out.println();
+
+
     }
 
-    private void findPath(int start, int[][] arr){
-        for (int[] row : arr) {
-            for (int j = 0; j < arr.length; j++) {
-                if (row[j] != 0) {
-                    if(row[j]+1<0){
 
-                    }else {
 
-                    }
-                }
+    int result[][];
+    private void initResult(){
+        result = new int[arr.length][arr.length];
+        for (int i = 0 ; i < arr.length;i++){
+            for(int j = 0 ; j < arr.length;j++){
+                result [i][j] = 0;
             }
         }
+        out = new int[arr.length];
+
     }
 
+    int[] out;
+    ArrayList<Integer> m0;
+    ArrayList<Integer> m1;
+    ArrayList<Integer> m11;
+    ArrayList<Integer> m2;
 
-    private void graphTraversal(){
-        for(int i = 0 ; i < arr.length;i++){
-            if(arr[start][i] == 1) graphTraversal(2, i);
 
+    private void getNextH(){
+        int nextInt;
+        if(m11.size() > 0){
+            nextInt = m11.get(0);
+            m11.remove(0);
+        }else if(m1.size() > 0){
+            nextInt = m1.get(0);
+            m1.remove(0);
         }
     }
 
-        private void graphTraversal(int count, int h){
-        if(h == start) return;
-
-        for(int i = 0 ; i < arr.length;i++){
-            switch (arr[h][i]) {
-//                case 0:
-//                    arr[h][i] = count;
-//                    graphTraversal(count+1, i);
-//                    break;
-                case 1:
-                    graphTraversal(count+1, i);
-                    break;
-                default:
-                    if(arr[h][i] >= count){
-                        arr[h][i] = count;
-                        graphTraversal(count+1, i);
-                    }
-            }
+    private void findPath(int start, int h , int step) {
+        if (h == this.start){
+            return;
+        }else if(out[h] == 0) {
+            out[h] = step;
+        }else if(out[h] > step) {
+            out[h] = step;
+        }else {
+            return;
         }
+
+//        for(int i = 0; i < arr.length;i++){
+//            if(arr[i][h] == 1)
+//                findPath(h, i , step+1);
+//        }
     }
 
-    private int DFS(int h, int count){
-        if(count > arr.length) return -1;
+    private void startFindPath(int start){
+        initResult();
 
         for(int i = 0; i < arr.length; i++){
-            arr[h][i] = result(h , i , count+1);
+            if(arr[i][start] == 1)
+                findPath(start, i , 1);
         }
-        return -2;
+
+        for(int i : out){
+            System.out.print(i + " ");
+        }
     }
 
-    private int result(int h , int i, int count){
-
-            if(arr[h][i] == 0){
-                arr[h][i] = DFS(i , count+1);
-            }else if(arr[h][i] == 1){
-                return count;
-            }else if(arr[h][i] > 1) {
-                return Math.max(arr[h][i] , DFS(i,count+1));
-            }
+    private int[] result(int[] arr){
+        int[] resul = new int[arr.length];
 
 
-        return -1;
+        return null;
     }
+//    private void graphTraversal(){
+//        for(int i = 0 ; i < arr.length;i++){
+//            if(arr[start][i] == 1) graphTraversal(2, i);
+//
+//        }
+//    }
+
+//        private void graphTraversal(int count, int h){
+//        if(h == start) return;
+//
+//        for(int i = 0 ; i < arr.length;i++){
+//            switch (arr[h][i]) {
+////                case 0:
+////                    arr[h][i] = count;
+////                    graphTraversal(count+1, i);
+////                    break;
+//                case 1:
+//                    graphTraversal(count+1, i);
+//                    break;
+//                default:
+//                    if(arr[h][i] >= count){
+//                        arr[h][i] = count;
+//                        graphTraversal(count+1, i);
+//                    }
+//            }
+//        }
+//    }
+
+//    private int DFS(int h, int count){
+//        if(count > arr.length) return -1;
+//
+//        for(int i = 0; i < arr.length; i++){
+//            arr[h][i] = result(h , i , count+1);
+//        }
+//        return -2;
+//    }
+
+
+
+//    private int result(int h , int i, int count){
+//
+//            if(arr[h][i] == 0){
+//                arr[h][i] = DFS(i , count+1);
+//            }else if(arr[h][i] == 1){
+//                return count;
+//            }else if(arr[h][i] > 1) {
+//                return Math.max(arr[h][i] , DFS(i,count+1));
+//            }
+//
+//
+//        return -1;
+//    }
 
     static int[][] t(int[][] arr){
         int[][] tM = new int[arr.length][arr.length];

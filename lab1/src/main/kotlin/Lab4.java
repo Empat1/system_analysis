@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class Lab4 {
@@ -16,28 +18,50 @@ public class Lab4 {
                 ,{1, 0, 0, 0, 0, 0, 0}
                 ,{0, 1, 0, 1, 0, 0, 0}};
 
-        int[][] at = t(a);
+        int[][] c = {{0, 1, 0, 0, 0, 1, 0, 0, 0, 0}
+                ,{0, 0, 0, 1, 0 ,1, 0, 0, 0, 0}
+                ,{0, 0, 0, 0, 0, 0, 1, 1, 0, 0}
+                ,{0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
+                ,{0, 0, 0, 1, 0, 0, 0, 0, 1, 0}
+                ,{0, 0, 1, 0, 0, 0, 1, 0, 0, 1}
+                ,{0, 0, 0, 1, 0, 0, 0, 1, 0, 0}
+                ,{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+                ,{0, 0, 0, 0, 1, 0, 0, 1, 0, 0}
+                ,{0, 0, 0, 0, 0, 0, 0, 0, 1, 0}};
+
+        int[][] d = {{0, 1, 0, 0, 1, 0, 0, 0, 0, 0}
+                ,{0, 0, 0, 1, 0 ,1, 0, 0, 0, 0}
+                ,{0, 0, 0, 0, 0, 0, 1, 1, 0, 0}
+                ,{0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
+                ,{0, 0, 0, 1, 0, 0, 0, 0, 1, 0}
+                ,{0, 0, 0, 0, 0, 1, 1, 0, 0, 0}
+                ,{0, 0, 0, 0, 0, 0, 1, 1, 0, 0}
+                ,{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+                ,{0, 0, 0, 0, 1, 0, 0, 1, 0, 0}
+                ,{0, 0, 0, 0, 0, 0, 0, 0, 1, 0}};
+
+        int[][] at = t(c);
         int[][] bt = t(b);
 
 
         int start=0;
 
-        y = t(b);
-        print(t(y));
+//        y = t(c);
+//        print(t(y));
 
-//        findLvl0(bt , start).forEach(System.out::println);
+//        findLvl0(at).forEach(System.out::println);
 
-        ArrayList<ArrayList<Integer>> lvl = lvlplas(at , findLvl0(at , start));
-
-//        for(ArrayList<Integer> l : lvl){
-//            System.out.println();
-//            l.forEach(it -> System.out.print(it + " "));
-//        }
+        ArrayList<ArrayList<Integer>> lvl = lvlplas(at , findLvl0(at));
 //
-        int[][] answer = findPath(y , lvl);
+        for(ArrayList<Integer> l : lvl){
+            System.out.println();
+            l.forEach(it -> System.out.print(it + " "));
+        }
+//
+        int[][] answer = findPath(at , lvl);
         System.out.println();
 
-//        print(t(answer));
+        print(t(answer));
 
     }
 
@@ -49,6 +73,7 @@ public class Lab4 {
 
     static int[][] y;
 
+    @NotNull
     static int[][] findPath(int[][] arr , ArrayList<ArrayList<Integer>> lvls){
         int[][] nA = new int[arr.length][arr.length];
 
@@ -78,8 +103,9 @@ public class Lab4 {
     static int getLvlPath(int a , int b, ArrayList<ArrayList<Integer>> lvls){
         int la = getLvl(a , lvls);
         int lb = getLvl(b , lvls);
-        if(la == -1 || lb == -1) return -1;
-        return Math.max(a , b)- Math.min(a , b);
+        if(la == -1 || lb == -1  ) return -1;
+        return la - lb;
+//        return Math.max(la , lb)- Math.min(la , lb);
     }
 
     static int getLvl(int number, ArrayList<ArrayList<Integer>> lvls){
@@ -109,22 +135,23 @@ public class Lab4 {
     }
 
 
-    static ArrayList<Integer> findLvl0(int[][] arr, int start){
+    static ArrayList<Integer> findLvl0(int[][] arr){
         ArrayList<Integer> lvl0 =new ArrayList<Integer>();
         boolean flag;
 
         for(int i =0 ; i < arr.length;i++){
             flag = true;
-//            for(int j = 0; j < arr.length;j++){
-//                if(arr[i][j] == 1) {
-//                    flag = false;
-//                    break;
-//                }
-//            }
-            if(arr[i][start] == 1) lvl0.add(i+1);
-//            if(flag){
-//                lvl0.add(i+1);
-//            }
+            for(int j = 0; j < arr.length;j++){
+                if(arr[i][j] == 1) {
+                    flag = false;
+                    break;
+                }
+            }
+//            if(arr[i][start] == 1) lvl0.add(i+1);
+            if(flag){
+                lvl0.add(i+1);
+                return lvl0;
+            }
         }
 
         return lvl0;
@@ -182,7 +209,12 @@ public class Lab4 {
     static void print(int[][] arr){
         for(int i = 0; i < arr.length;i++ ){
             for (int j = 0; j < arr[0].length; j++){
-                System.out.print(arr[i][j]);
+                if(arr[i][j] < 0){
+                    System.out.print(arr[i][j] + " ");
+                }else{
+                    System.out.print(" " + arr[i][j] + " ");
+                }
+
             }
             System.out.println();
         }
